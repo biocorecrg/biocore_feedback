@@ -1,0 +1,14 @@
+services:
+  feedback-service:
+    build: .
+    container_name: biocore_feedback
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    environment:
+      - SLACK_WEBHOOK_URL=${SLACK_WEBHOOK_URL}
+      - PORT=8080
+      - ALLOWED_ORIGINS=${ALLOWED_ORIGINS:-*}
+      - RATE_LIMIT_PER_MINUTE=${RATE_LIMIT_PER_MINUTE:-10}
+    env_file:
+      - .env
